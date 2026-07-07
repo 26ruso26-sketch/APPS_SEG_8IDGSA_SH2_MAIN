@@ -104,7 +104,50 @@ async function loadLeaderboard() {
 function enableAdminMode() {
     isAdmin = true;
     document.body.classList.add('admin-mode');
+    
+    // Crear e insertar dinámicamente el botón de cerrar sesión (sin existir previamente en HTML)
+    const logoutBtn = document.createElement('button');
+    logoutBtn.id = 'logout-btn';
+    logoutBtn.className = 'btn-logout';
+    logoutBtn.textContent = 'Cerrar Sesión';
+    
+    logoutBtn.addEventListener('click', async () => {
+        try {
+            await fetch('/api/auth/logout', { method: 'POST' });
+            disableAdminMode();
+            alert('Sesión cerrada con éxito.');
+        } catch (err) {
+            console.error('Error al cerrar sesión:', err);
+            disableAdminMode();
+        }
+    });
+
+    const headerContent = document.querySelector('.header-content');
+    if (headerContent) {
+        headerContent.appendChild(logoutBtn);
+    }
+
     alert('Modo Administrador activado. Puede hacer clic sobre cualquier equipo de la lista para actualizar sus estadísticas de partidos.');
+}
+
+// Desactivar modo administración y eliminar elementos dinámicos del DOM
+function disableAdminMode() {
+    isAdmin = false;
+    document.body.classList.remove('admin-mode');
+
+    // Eliminar botón de cerrar sesión
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) logoutBtn.remove();
+
+    // Eliminar modal de edición si se encuentra abierto
+    const editModal = document.getElementById('edit-stats-modal');
+    if (editModal) editModal.remove();
+
+    // Eliminar modal de login si se encuentra abierto
+    const loginModal = document.getElementById('login-modal');
+    if (loginModal) loginModal.remove();
+
+    loadLeaderboard(); // Restaurar el leaderboard al estado público limpio
 }
 
 // Mostrar modal dinámico de Login (no presente en el HTML inicial)
@@ -273,6 +316,13 @@ function showEditStatsModal(team) {
             });
 
             const data = await response.json();
+
+            if (response.status === 401) {
+                overlay.remove();
+                disableAdminMode();
+                alert('Sesión expirada o inválida. Por favor, vuelva a autenticarse.');
+                return;
+            }
 
             if (response.ok && data.success) {
                 overlay.remove();

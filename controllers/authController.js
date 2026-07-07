@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const { dbGet, dbRun } = require('../database/connection');
-const { createSession } = require('../utils/session');
+const { createSession, destroySession } = require('../utils/session');
+const { parseCookies } = require('../middleware/auth');
 const { logSecurityEvent } = require('../utils/logger');
 const { recordFailedLogin, resetFailedLogin } = require('../middleware/rateLimiter');
 
@@ -62,6 +63,29 @@ async function login(req, res) {
     }
 }
 
+async function logout(req, res) {
+    const ip = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    
+    try {
+        const cookies = parseCookies(req.headers.cookie);
+        const sessionId = cookies['session_id'];
+
+        if (sessionId) {
+            destroySession(sessionId);
+            await logSecurityEvent('INFO', ip, 'LOGOUT_SUCCESS', 'Cierre de sesión del administrador exitoso.');
+        }
+
+        // Eliminar la cookie en el cliente
+        res.setHeader('Set-Cookie', 'session_id=; HttpOnly; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0');
+        
+        return res.json({ success: true, message: 'Sesión cerrada exitosamente.' });
+    } catch (error) {
+        console.error('Error in authController.logout:', error);
+        return res.status(500).json({ error: 'Error interno en el servidor.' });
+    }
+}
+
 module.exports = {
-    login
+    login,
+    logout
 };
