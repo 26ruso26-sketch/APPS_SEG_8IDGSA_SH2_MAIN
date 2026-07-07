@@ -1,0 +1,20 @@
+{
+  "name": "leaderboard-mundial",
+  "version": "1.0.0",
+  "description": "Leaderboard del Mundial - Secure Web Application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "db:init": "node db.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.2.0",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
+    "sqlite3": "^5.1.7"
+  },
+  "private": true
+}

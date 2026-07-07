@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fase de Grupos - FIFA World Cup 2026</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Encabezado Principal con branding del torneo -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="gold-badge">🏆</div>
+                <h1>Copa Mundial de la FIFA 2026</h1>
+                <p class="tagline">Panel Oficial de Clasificación - Fase de Grupos</p>
+            </div>
+        </header>
+
+        <!-- Contenedor Principal de la Tabla de Posiciones -->
+        <main class="app-main">
+            <div id="loading" class="loading-state">
+                <div class="loader"></div>
+                <p>Consultando registros oficiales en la base de datos...</p>
+            </div>
+
+            <div id="groups-container" class="groups-grid" style="display: none;">
+                <!-- Inyectado dinámicamente mediante app.js -->
+            </div>
+        </main>
+
+        <!-- Pie de página con el Easter Egg oculto para autenticación -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <p>© FIFA World Cup 2026 — Solo para <span id="admin-trigger">administradores</span> oficiales del Mundial.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Script del Frontend -->
+    <script src="app.js"></script>
+</body>
+</html>
