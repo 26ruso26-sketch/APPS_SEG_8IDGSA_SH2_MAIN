@@ -1,24 +1,365 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-    <title>Estadios</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fase de Grupos - FIFA World Cup 2026</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<nav>
-    <a href="index.html">Inicio</a>
-    <a href="estadios.html">Estadios</a>
+<nav class="main-nav">
+    <div class="nav-container">
+
+        <a href="index.html" class="nav-logo">
+            <span class="logo-icon">🏆</span>
+            <div>
+                <h2>FIFA 2026</h2>
+                <small>World Cup</small>
+            </div>
+        </a>
+
+        <ul class="nav-menu">
+            <li><a href="index.html" class="active">Inicio</a></li>
+            <li><a href="estadios.html">Estadios</a></li>
+            <li><a href="equipos.html">Equipos</a></li>
+            <li><a href="grupos.html">Grupos</a></li>
+            <li><a href="partidos.html">Partidos</a></li>
+            <li><a href="estadisticas.html">Estadísticas</a></li>
+        </ul>
+
+    </div>
 </nav>
 
-<h1>Lista de Estadios</h1>
+<div class="app-container"></div>
+<section class="stadiums-section">
 
-<p>Aquí irá la información de los estadios.</p>
+    <div class="page-title">
+        <h1>Estadios Oficiales</h1>
+        <p>Sedes del Mundial FIFA 2026</p>
+    </div>
 
+    <!-- Estados Unidos -->
+
+    <h2 class="country-title">
+        🇺🇸 Estados Unidos
+    </h2>
+
+    <div class="stadium-grid">
+
+        <div class="stadium-card">
+            <div class="stadium-image">
+                <img src="images/metlife.jpg" alt="">
+            </div>
+
+            <h3>MetLife Stadium</h3>
+
+            <p>
+                East Rutherford, Nueva Jersey.
+                Será sede de la Final del Mundial 2026.
+            </p>
+        </div>
+
+        <div class="stadium-card">
+            <div class="stadium-image">
+                <img src="images/att.jpg" alt="">
+            </div>
+
+            <h3>AT&T Stadium</h3>
+
+            <p>
+                Arlington, Texas.
+                Uno de los estadios con mayor capacidad del torneo.
+            </p>
+        </div>
+
+        <div class="stadium-card">
+            <div class="stadium-image">
+                <img src="images/nrg.jpg" alt="">
+            </div>
+
+            <h3>NRG Stadium</h3>
+
+            <p>
+                Houston, Texas.
+                Recibirá partidos de fase de grupos y eliminatorias.
+            </p>
+        </div>
+
+        <div class="stadium-card">
+            <div class="stadium-image">
+                <img src="images/sofi.jpg" alt="">
+            </div>
+
+            <h3>SoFi Stadium</h3>
+
+            <p>
+                Los Ángeles, California.
+                Considerado uno de los estadios más modernos del mundo.
+            </p>
+        </div>
+
+        <div class="stadium-card">
+            <div class="stadium-image">
+                <img src="images/levis.jpg" alt="">
+            </div>
+
+            <h3>Levi's Stadium</h3>
+
+            <p>
+                Santa Clara, California.
+            </p>
+        </div>
+
+        <div class="stadium-card">
+            <div class="stadium-image">
+                <img src="images/lumen.jpg" alt="">
+            </div>
+
+            <h3>Lumen Field</h3>
+
+            <p>
+                Seattle, Washington.
+            </p>
+        </div>
+
+        <div class="stadium-card">
+            <div class="stadium-image">
+                <img src="images/mercedes.jpg" alt="">
+            </div>
+
+            <h3>Mercedes-Benz Stadium</h3>
+
+            <p>
+                Atlanta, Georgia.
+            </p>
+        </div>
+
+        <div class="stadium-card">
+            <div class="stadium-image">
+                <img src="images/lincoln.jpg" alt="">
+            </div>
+
+            <h3>Lincoln Financial Field</h3>
+
+            <p>
+                Filadelfia, Pensilvania.
+            </p>
+        </div>
+
+        <div class="stadium-card">
+            <div class="stadium-image">
+                <img src="images/hardrock.jpg" alt="">
+            </div>
+
+            <h3>Hard Rock Stadium</h3>
+
+            <p>
+                Miami Gardens, Florida.
+            </p>
+        </div>
+
+        <div class="stadium-card">
+            <div class="stadium-image">
+                <img src="images/arrowhead.jpg" alt="">
+            </div>
+
+            <h3>Arrowhead Stadium</h3>
+
+            <p>
+                Kansas City, Misuri.
+            </p>
+        </div>
+
+        <div class="stadium-card">
+            <div class="stadium-image">
+                <img src="images/gillette.jpg" alt="">
+            </div>
+
+            <h3>Gillette Stadium</h3>
+
+            <p>
+                Foxborough, Massachusetts.
+            </p>
+        </div>
+
+    </div>
+
+    <h2 class="country-title">
+        🇨🇦 Canadá
+    </h2>
+
+    <div class="stadium-grid">
+
+        <div class="stadium-card">
+
+            <div class="stadium-image">
+                <img src="images/bcplace.jpg">
+            </div>
+
+            <h3>BC Place</h3>
+
+            <p>
+                Vancouver, Columbia Británica.
+            </p>
+
+        </div>
+
+        <div class="stadium-card">
+
+            <div class="stadium-image">
+                <img src="images/bmofield.jpg">
+            </div>
+
+            <h3>BMO Field</h3>
+
+            <p>
+                Toronto, Ontario.
+            </p>
+
+        </div>
+
+    </div>
+
+    <h2 class="country-title">
+        🇲🇽 México
+    </h2>
+
+    <div class="stadium-grid">
+
+        <div class="stadium-card">
+
+            <div class="stadium-image">
+                <img src="images/azteca.jpg">
+            </div>
+
+            <h3>Estadio Azteca</h3>
+
+            <p>
+                Ciudad de México.
+                Primer estadio en albergar tres Copas del Mundo.
+            </p>
+
+        </div>
+
+        <div class="stadium-card">
+
+            <div class="stadium-image">
+                <img src="images/bbva.jpg">
+            </div>
+
+            <h3>Estadio BBVA</h3>
+
+            <p>
+                Monterrey, Nuevo León.
+            </p>
+
+        </div>
+
+        <div class="stadium-card">
+
+            <div class="stadium-image">
+                <img src="images/akron.jpg">
+            </div>
+
+            <h3>Estadio Akron</h3>
+
+            <p>
+                Guadalajara, Jalisco.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+ <!-- Pie de página con el Easter Egg oculto para autenticación -->
+                <footer class="main-footer">
+
+            <div class="footer-container">
+
+                <!-- Información -->
+                <div class="footer-column">
+                    <h3>🏆 FIFA World Cup 2026</h3>
+
+                    <p>
+                        Plataforma interactiva para consultar la fase de grupos,
+                        estadísticas, equipos, sedes y resultados del Mundial
+                        organizado en México, Estados Unidos y Canadá.
+                    </p>
+
+                    <div class="footer-host">
+                        🌎 México • Estados Unidos • Canadá
+                    </div>
+                </div>
+
+                <!-- Navegación -->
+                <div class="footer-column">
+
+                    <h4>Navegación</h4>
+
+                    <a href="index.html">Inicio</a>
+                    <a href="estadios.html">Estadios</a>
+                    <a href="equipos.html">Equipos</a>
+                    <a href="grupos.html">Grupos</a>
+                    <a href="partidos.html">Partidos</a>
+
+                </div>
+
+                <!-- Mundial -->
+                <div class="footer-column">
+
+                    <h4>Competición</h4>
+
+                    <a href="#">Clasificación</a>
+                    <a href="#">Calendario</a>
+                    <a href="#">Tabla General</a>
+                    <a href="#">Máximos Goleadores</a>
+                    <a href="#">Reglamento FIFA</a>
+
+                </div>
+
+                <!-- Patrocinadores -->
+                <div class="footer-column">
+
+                    <h4>Patrocinadores Oficiales</h4>
+
+                    <div class="sponsor-grid">
+
+                        <span>adidas</span>
+                        <span>Coca-Cola</span>
+                        <span>Visa</span>
+                        <span>Hyundai</span>
+                        <span>KIA</span>
+                        <span>Lenovo</span>
+                        <span>Qatar Airways</span>
+                        <span>Aramco</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <div>
+                    © 2026 FIFA World Cup | Todos los derechos reservados
+                </div>
+
+                <div>
+                    Desarrollado para fines educativos |
+                    <span id="admin-trigger">Administradores</span>
+                </div>
+
+            </div>
+
+        </footer>
+    </div>
+
+    <!-- Script del Frontend -->
+    <script src="app.js"></script>
 </body>
-
 </html>

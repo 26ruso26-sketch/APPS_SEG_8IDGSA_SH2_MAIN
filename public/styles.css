@@ -713,3 +713,164 @@ body {
     font-size:.9rem;
 
 }
+
+/*==========================
+        ESTADIOS
+==========================*/
+
+.stadiums-section{
+
+    max-width:1400px;
+    margin:auto;
+    padding:50px 20px;
+
+}
+
+.page-title{
+
+    text-align:center;
+    margin-bottom:50px;
+
+}
+
+.page-title h1{
+
+    font-size:2.5rem;
+    color:var(--color-gold);
+    margin-bottom:10px;
+
+}
+
+.page-title p{
+
+    color:var(--color-muted);
+    font-size:1.05rem;
+
+}
+
+.country-title{
+
+    color:var(--color-gold);
+    margin:60px 0 25px;
+
+    padding-bottom:12px;
+
+    border-bottom:1px solid var(--border-card);
+
+}
+
+.stadium-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:28px;
+
+}
+
+.stadium-card{
+
+    background:var(--bg-card);
+
+    border:1px solid var(--border-card);
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    backdrop-filter:blur(10px);
+
+    transition:.35s;
+
+    box-shadow:0 8px 30px rgba(0,0,0,.35);
+
+}
+
+.stadium-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:var(--color-gold);
+
+    box-shadow:0 15px 40px rgba(223,178,87,.15);
+
+}
+
+.stadium-image{
+
+    height:220px;
+
+    overflow:hidden;
+
+    background:#111;
+
+}
+
+.stadium-image img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.5s;
+
+}
+
+.stadium-card:hover img{
+
+    transform:scale(1.08);
+
+}
+
+.stadium-card h3{
+
+    color:var(--color-gold);
+
+    padding:18px 20px 8px;
+
+    font-size:1.2rem;
+
+}
+
+.stadium-card p{
+
+    padding:0 20px 22px;
+
+    color:var(--color-muted);
+
+    line-height:1.7;
+
+}
+
+@media(max-width:1200px){
+
+.stadium-grid{
+
+grid-template-columns:repeat(3,1fr);
+
+}
+
+}
+
+@media(max-width:900px){
+
+.stadium-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:600px){
+
+.stadium-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
