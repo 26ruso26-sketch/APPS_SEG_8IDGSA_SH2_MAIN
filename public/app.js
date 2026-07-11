@@ -358,3 +358,13 @@ document.addEventListener('DOMContentLoaded', () => {
     loadLeaderboard();
     setupEasterEgg();
 });
+
+    
+function captchaCorrecto(token) {
+
+    console.log("Turnstile verificado");
+    console.log(token);
+
+    document.getElementById("captcha").style.display = "none";
+    document.getElementById("contenido").style.display = "block";
+}

@@ -5,8 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fase de Grupos - FIFA World Cup 2026</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
+    <div id="captcha">
+        <div class="captcha-box">
+
+        <h2>🏆 FIFA World Cup 2026</h2>
+
+        <p>
+            Verifica que eres un visitante humano para acceder al sitio.
+        </p>
+
+    <div
+        class="cf-turnstile"
+        data-sitekey="0x4AAAAAADze8BFvw8tQN6Ya"
+        data-callback="captchaCorrecto">
+    </div>
+
+    </div>
+
+</div>
+<div id="contenido" style="display:none;">
+
+    <!-- Aquí va todo tu sitio -->
+
+
 <nav class="main-nav">
     <div class="nav-container">
 
@@ -21,10 +45,8 @@
         <ul class="nav-menu">
             <li><a href="index.html" class="active">Inicio</a></li>
             <li><a href="estadios.html">Estadios</a></li>
-            <li><a href="equipos.html">Equipos</a></li>
-            <li><a href="grupos.html">Grupos</a></li>
             <li><a href="partidos.html">Partidos</a></li>
-            <li><a href="estadisticas.html">Estadísticas</a></li>
+            <li><a href="goleadores.html">Goleadores</a></li>
         </ul>
 
     </div>
@@ -138,5 +160,7 @@
 
     <!-- Script del Frontend -->
     <script src="app.js"></script>
+
+    </div>
 </body>
 </html>
