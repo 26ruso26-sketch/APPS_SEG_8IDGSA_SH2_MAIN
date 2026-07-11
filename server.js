@@ -1,7 +1,10 @@
 require('dotenv').config();
+
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const compression = require('compression');
+const rateLimit = require('express-rate-limit');
 const fs = require('fs');
 const path = require('path');
 
@@ -13,50 +16,178 @@ const adminRoutes = require('./routes/adminRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Configurar confianza en proxies para obtener la IP del cliente real (ej. detrás de ngrok)
 app.set('trust proxy', 1);
+
+app.disable('x-powered-by');
+
+const accessLogStream = fs.createWriteStream(
+    path.join(__dirname, 'access.log'),
+    { flags: 'a' }
+);
+
+app.use(morgan('combined', {
+    stream: accessLogStream
+}));
+
+
+app.use(compression());
+
 
 // 1. Configuración de Morgan para registrar el tráfico en access.log
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 app.use(morgan('combined', { stream: accessLogStream }));
 
 // 2. Hardening con Helmet y directivas estrictas de Content Security Policy (CSP)
-app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            scriptSrc: ["'self'"],
-            styleSrc: ["'self'"],
-            imgSrc: ["'self'"],
-            connectSrc: ["'self'"],
-            fontSrc: ["'self'"],
-            objectSrc: ["'none'"],
-            upgradeInsecureRequests: []
-        }
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+                scriptSrc: ["'self'"],
+                styleSrc: ["'self'"],
+                imgSrc: ["'self'", "data:"],
+                connectSrc: ["'self'"],
+                fontSrc: ["'self'"],
+                objectSrc: ["'none'"],
+                baseUri: ["'self'"],
+                frameAncestors: ["'none'"],
+                formAction: ["'self'"],
+                upgradeInsecureRequests: []
+            }
+        },
+        referrerPolicy: {
+            policy: "no-referrer"
+        },
+        frameguard: {
+            action: "deny"
+        },
+        noSniff: true,
+        hidePoweredBy: true
+    })
+);
+
+
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, 
+    max: 200,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: {
+        error: "Demasiadas solicitudes. Intente nuevamente más tarde."
     }
+});
+
+app.use(limiter);
+
+
+app.use(express.json({
+    limit: "20kb"
 }));
 
-// Parsers de cuerpo de solicitud
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+    extended: true,
+    limit: "20kb"
+}));
 
-// 3. Middleware Honeytoken (bloqueo de rutas antes del servidor estático)
+                scriptSrc: [
+                    "'self'",
+                    "https://challenges.cloudflare.com"
+                ],
+
+                frameSrc: [
+                    "'self'",
+                    "https://challenges.cloudflare.com"
+                ],
+
+                styleSrc: [
+                    "'self'",
+                    "'unsafe-inline'"
+                ],
+
+                imgSrc: [
+                    "'self'",
+                    "data:",
+                    "https:"
+                ],
+
+                connectSrc: [
+                    "'self'",
+                    "https://challenges.cloudflare.com"
+                ],
+
+                fontSrc: [
+                    "'self'",
+                    "data:"
+                ],
+
+                objectSrc: ["'none'"]
+                
+            }
+        }
+    })
+);
+
+
+app.use((req, res, next) => {
+
+    if (req.originalUrl.startsWith('/api')) {
+
+        res.setHeader(
+            'Cache-Control',
+            'no-store, no-cache, must-revalidate, private'
+        );
+
+    }
+
+    next();
+
+});
+
+app.use((req, res, next) => {
+
+    res.setHeader(
+        'Permissions-Policy',
+        'geolocation=(), microphone=(), camera=()'
+    );
+
+    next();
+
+});
+
+
 app.use(honeytokenMiddleware);
 
-// Servir archivos estáticos del frontend
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Enrutamiento de las APIs
 app.use('/api', leaderboardRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Manejo general de rutas inexistentes (404)
+
 app.use((req, res) => {
-    res.status(404).send('Not Found');
+
+    res.status(404).json({
+        error: 'Recurso no encontrado.'
+    });
+
 });
 
-// Iniciar servidor
+app.use((err, req, res, next) => {
+
+    console.error(err);
+
+    res.status(500).json({
+        error: 'Error interno del servidor.'
+    });
+
+});
+
 app.listen(PORT, () => {
-    console.log(`[BLUE-TEAM] Servidor iniciado correctamente en el puerto ${PORT}`);
+
+    console.log(
+        `[BLUE-TEAM] Servidor iniciado correctamente en el puerto ${PORT}`
+    );
+
 });
