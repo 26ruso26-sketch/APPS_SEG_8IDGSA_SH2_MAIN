@@ -33,6 +33,11 @@ app.use(morgan('combined', {
 app.use(compression());
 
 
+// 1. Configuración de Morgan para registrar el tráfico en access.log
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
+app.use(morgan('combined', { stream: accessLogStream }));
+
+// 2. Hardening con Helmet y directivas estrictas de Content Security Policy (CSP)
 app.use(
     helmet({
         contentSecurityPolicy: {
@@ -84,6 +89,45 @@ app.use(express.urlencoded({
     extended: true,
     limit: "20kb"
 }));
+
+                scriptSrc: [
+                    "'self'",
+                    "https://challenges.cloudflare.com"
+                ],
+
+                frameSrc: [
+                    "'self'",
+                    "https://challenges.cloudflare.com"
+                ],
+
+                styleSrc: [
+                    "'self'",
+                    "'unsafe-inline'"
+                ],
+
+                imgSrc: [
+                    "'self'",
+                    "data:",
+                    "https:"
+                ],
+
+                connectSrc: [
+                    "'self'",
+                    "https://challenges.cloudflare.com"
+                ],
+
+                fontSrc: [
+                    "'self'",
+                    "data:"
+                ],
+
+                objectSrc: ["'none'"]
+                
+            }
+        }
+    })
+);
+
 
 app.use((req, res, next) => {
 

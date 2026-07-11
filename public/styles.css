@@ -424,3 +424,732 @@ body {
         font-size: 1.7rem;
     }
 }
+
+/*======================
+        NAVBAR
+=======================*/
+
+.main-nav{
+
+    position: sticky;
+    top:0;
+    z-index:1000;
+
+    background:rgba(18,28,23,.88);
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid var(--border-card);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+
+}
+
+.nav-container{
+
+    max-width:1400px;
+    margin:auto;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:15px 25px;
+
+}
+
+.nav-logo{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    text-decoration:none;
+    color:var(--color-text);
+
+}
+
+.logo-icon{
+
+    font-size:2rem;
+
+    filter:drop-shadow(0 0 10px rgba(223,178,87,.6));
+
+}
+
+.nav-logo h2{
+
+    font-size:1rem;
+    color:var(--color-gold);
+    letter-spacing:1px;
+
+}
+
+.nav-logo small{
+
+    color:var(--color-muted);
+
+}
+
+.nav-menu{
+
+    display:flex;
+    gap:12px;
+    list-style:none;
+
+}
+
+.nav-menu a{
+
+    text-decoration:none;
+
+    color:var(--color-muted);
+
+    padding:10px 18px;
+
+    border-radius:8px;
+
+    transition:.3s;
+
+    font-weight:600;
+
+}
+
+.nav-menu a:hover{
+
+    color:var(--color-text);
+
+    background:rgba(223,178,87,.12);
+
+    border:1px solid rgba(223,178,87,.25);
+
+}
+
+.nav-menu .active{
+
+    color:var(--color-gold);
+
+    background:rgba(223,178,87,.10);
+
+    border:1px solid rgba(223,178,87,.35);
+
+}
+
+/*======================
+        FOOTER
+=======================*/
+
+/*==========================
+          FOOTER
+===========================*/
+
+.main-footer{
+
+    margin-top:70px;
+
+    background:rgba(18,28,23,.92);
+
+    border-top:1px solid var(--border-card);
+
+    backdrop-filter:blur(14px);
+
+}
+
+.footer-container{
+
+    max-width:1400px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr 1fr 2fr;
+
+    gap:45px;
+
+    padding:55px 30px;
+
+}
+
+.footer-column h3{
+
+    color:var(--color-gold);
+
+    margin-bottom:15px;
+
+}
+
+.footer-column h4{
+
+    color:var(--color-gold);
+
+    margin-bottom:18px;
+
+    font-size:1rem;
+
+}
+
+.footer-column p{
+
+    color:var(--color-muted);
+
+    line-height:1.8;
+
+    margin-bottom:20px;
+
+}
+
+.footer-column a{
+
+    display:block;
+
+    text-decoration:none;
+
+    color:var(--color-muted);
+
+    margin-bottom:12px;
+
+    transition:.3s;
+
+}
+
+.footer-column a:hover{
+
+    color:var(--color-gold);
+
+    transform:translateX(6px);
+
+}
+
+.footer-host{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:10px 16px;
+
+    border-radius:8px;
+
+    background:rgba(223,178,87,.08);
+
+    border:1px solid rgba(223,178,87,.15);
+
+    color:var(--color-gold);
+
+    font-size:.9rem;
+
+}
+
+.sponsor-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:12px;
+
+}
+
+.sponsor-grid span{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    background:rgba(255,255,255,.03);
+
+    border:1px solid var(--border-card);
+
+    color:var(--color-text);
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.sponsor-grid span:hover{
+
+    transform:translateY(-4px);
+
+    border-color:var(--color-gold);
+
+    color:var(--color-gold);
+
+    box-shadow:0 0 15px rgba(223,178,87,.15);
+
+}
+
+.footer-bottom{
+
+    border-top:1px solid var(--border-card);
+
+    padding:18px 30px;
+
+    max-width:1400px;
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+    color:var(--color-muted);
+
+    font-size:.9rem;
+
+}
+
+/*==========================
+        ESTADIOS
+==========================*/
+
+.stadiums-section{
+
+    max-width:1400px;
+    margin:auto;
+    padding:50px 20px;
+
+}
+
+.page-title{
+
+    text-align:center;
+    margin-bottom:50px;
+
+}
+
+.page-title h1{
+
+    font-size:2.5rem;
+    color:var(--color-gold);
+    margin-bottom:10px;
+
+}
+
+.page-title p{
+
+    color:var(--color-muted);
+    font-size:1.05rem;
+
+}
+
+.country-title{
+
+    color:var(--color-gold);
+    margin:60px 0 25px;
+
+    padding-bottom:12px;
+
+    border-bottom:1px solid var(--border-card);
+
+}
+
+.stadium-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:28px;
+
+}
+
+.stadium-card{
+
+    background:var(--bg-card);
+
+    border:1px solid var(--border-card);
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    backdrop-filter:blur(10px);
+
+    transition:.35s;
+
+    box-shadow:0 8px 30px rgba(0,0,0,.35);
+
+}
+
+.stadium-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:var(--color-gold);
+
+    box-shadow:0 15px 40px rgba(223,178,87,.15);
+
+}
+
+.stadium-image{
+
+    height:220px;
+
+    overflow:hidden;
+
+    background:#111;
+
+}
+
+.stadium-image img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.5s;
+
+}
+
+.stadium-card:hover img{
+
+    transform:scale(1.08);
+
+}
+
+.stadium-card h3{
+
+    color:var(--color-gold);
+
+    padding:18px 20px 8px;
+
+    font-size:1.2rem;
+
+}
+
+.stadium-card p{
+
+    padding:0 20px 22px;
+
+    color:var(--color-muted);
+
+    line-height:1.7;
+
+}
+
+@media(max-width:1200px){
+
+.stadium-grid{
+
+grid-template-columns:repeat(3,1fr);
+
+}
+
+}
+
+@media(max-width:900px){
+
+.stadium-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:600px){
+
+.stadium-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+
+
+/*=========================================
+        HERO CARD FIFA 2026
+=========================================*/
+
+.stadium-main{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:45px 0 70px;
+
+}
+
+.hero-card{
+
+    width:100%;
+
+    max-width:1350px;
+
+    background:var(--bg-card);
+
+    border:1px solid var(--border-card);
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:0 15px 45px rgba(0,0,0,.45);
+
+    transition:.4s;
+
+}
+
+.hero-card:hover{
+
+    border-color:var(--border-gold);
+
+    box-shadow:0 18px 50px rgba(223,178,87,.18);
+
+}
+
+.hero-image{
+
+    width:100%;
+
+    height:650px;
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+.hero-image img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transition:transform .8s ease;
+
+}
+
+.hero-card:hover .hero-image img{
+
+    transform:scale(1.12);
+
+}
+
+.hero-image::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:linear-gradient(
+        to top,
+        rgba(5,8,6,.90),
+        rgba(5,8,6,.15),
+        transparent
+    );
+
+}
+
+.hero-info{
+
+    position:absolute;
+
+    left:60px;
+
+    bottom:55px;
+
+    max-width:700px;
+
+    z-index:5;
+
+}
+
+.hero-info h1{
+
+    font-size:3.2rem;
+
+    color:var(--color-gold);
+
+    margin-bottom:18px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-shadow:0 5px 10px rgba(0,0,0,.6);
+
+}
+
+.hero-info p{
+
+    color:var(--color-text);
+
+    font-size:1.1rem;
+
+    line-height:1.8;
+
+    margin-bottom:30px;
+
+    text-shadow:0 2px 5px rgba(0,0,0,.8);
+
+}
+
+.hero-button{
+
+    display:inline-block;
+
+    padding:15px 35px;
+
+    background:linear-gradient(
+        135deg,
+        #dfb257,
+        #b88f34
+    );
+
+    color:#111;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+    border-radius:10px;
+
+    transition:.3s;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+}
+
+.hero-button:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 0 25px rgba(223,178,87,.45);
+
+}
+
+/*==========================
+        Responsive
+===========================*/
+
+@media(max-width:1000px){
+
+.hero-image{
+
+height:520px;
+
+}
+
+.hero-info{
+
+left:35px;
+right:35px;
+bottom:35px;
+
+}
+
+.hero-info h1{
+
+font-size:2.5rem;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.hero-image{
+
+height:380px;
+
+}
+
+.hero-info{
+
+position:relative;
+
+left:auto;
+bottom:auto;
+padding:30px;
+
+background:rgba(15,22,18,.95);
+
+}
+
+.hero-info h1{
+
+font-size:2rem;
+
+}
+
+.hero-info p{
+
+font-size:.95rem;
+
+}
+
+}
+
+
+/* Pantalla del captcha */
+#captcha{
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center,#0f1c14,#050806);
+    z-index: 9999;
+}
+
+.captcha-box{
+    width: 420px;
+    padding: 35px;
+    border-radius: 16px;
+    background: rgba(18,28,23,.85);
+    border: 1px solid rgba(223,178,87,.35);
+    text-align: center;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 15px 40px rgba(0,0,0,.45);
+}
+
+.captcha-box h2{
+    color: var(--color-gold);
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+}
+
+.captcha-box p{
+    color: var(--color-muted);
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.captcha-box .cf-turnstile{
+    display: flex;
+    justify-content: center;
+}

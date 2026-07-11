@@ -5,31 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fase de Grupos - FIFA World Cup 2026</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
+
 <body>
-    <div id="captcha">
-        <div class="captcha-box">
-
-        <h2>🏆 FIFA World Cup 2026</h2>
-
-        <p>
-            Verifica que eres un visitante humano para acceder al sitio.
-        </p>
-
-    <div
-        class="cf-turnstile"
-        data-sitekey="0x4AAAAAADze8BFvw8tQN6Ya"
-        data-callback="captchaCorrecto">
-    </div>
-
-    </div>
-
-</div>
-<div id="contenido" style="display:none;">
-
-    <!-- Aquí va todo tu sitio -->
-
 
 <nav class="main-nav">
     <div class="nav-container">
@@ -52,29 +30,163 @@
     </div>
 </nav>
 
-    <div class="app-container">
-        <!-- Encabezado Principal con branding del torneo -->
-        <header class="app-header">
-            <div class="header-content">
-                <div class="gold-badge">🏆</div>
-                <h1>Copa Mundial de la FIFA 2026</h1>
-                <p class="tagline">Panel Oficial de Clasificación - Fase de Grupos</p>
-            </div>
-        </header>
+<div class="app-container"></div>
+<section class="stadiums-section">
 
-        <!-- Contenedor Principal de la Tabla de Posiciones -->
-        <main class="app-main">
-            <div id="loading" class="loading-state">
-                <div class="loader"></div>
-                <p>Consultando registros oficiales en la base de datos...</p>
+    <div class="page-title">
+        <h1>Estadios Oficiales</h1>
+        <p>Sedes del Mundial FIFA 2026</p>
+    </div>
+
+    <!-- Estados Unidos -->
+
+    <h2 class="country-title">
+        🇺🇸 Estados Unidos
+    </h2>
+
+    <div class="stadium-grid">
+
+        <div class="stadium-card">
+            <div class="stadium-image">
+                <img src="img/Meetlife.jpg" alt="">
             </div>
 
-            <div id="groups-container" class="groups-grid" style="display: none;">
-                <!-- Inyectado dinámicamente mediante app.js -->
-            </div>
-        </main>
+            <h3>MetLife Stadium</h3>
 
-        <!-- Pie de página con el Easter Egg oculto para autenticación -->
+            <p>
+                East Rutherford, Nueva Jersey.
+                Será sede de la Final del Mundial 2026.
+            </p>
+        </div>
+
+        <div class="stadium-card">
+            <div class="stadium-image">
+                <img src="img/Mercedesbenz.jpg" alt="">
+            </div>
+
+            <h3>Mercedes-Benz Stadium</h3>
+
+            <p>
+                Atlanta, Georgia.
+            </p>
+        </div>
+
+        <div class="stadium-card">
+            <div class="stadium-image">
+                <img src="img/Lincoln.jpg" alt="">
+            </div>
+
+            <h3>Lincoln Financial Field</h3>
+
+            <p>
+                Filadelfia, Pensilvania.
+            </p>
+        </div>
+
+        <div class="stadium-card">
+            <div class="stadium-image">
+                <img src="img/Arrowhead.jpg" alt="">
+            </div>
+
+            <h3>Arrowhead Stadium</h3>
+
+            <p>
+                Kansas City, Misuri.
+            </p>
+        </div>
+
+    </div>
+
+    <h2 class="country-title">
+        🇨🇦 Canadá
+    </h2>
+
+    <div class="stadium-grid">
+
+        <div class="stadium-card">
+
+            <div class="stadium-image">
+                <img src="img/BC.jpg">
+            </div>
+
+            <h3>BC Place</h3>
+
+            <p>
+                Vancouver, Columbia Británica.
+            </p>
+
+        </div>
+
+        <div class="stadium-card">
+
+            <div class="stadium-image">
+                <img src="img/BMO.jpg">
+            </div>
+
+            <h3>BMO Field</h3>
+
+            <p>
+                Toronto, Ontario.
+            </p>
+
+        </div>
+
+    </div>
+
+    <h2 class="country-title">
+        🇲🇽 México
+    </h2>
+
+    <div class="stadium-grid">
+
+        <div class="stadium-card">
+
+            <div class="stadium-image">
+                <img src="img/Azteca.jpg">
+            </div>
+
+            <h3>Estadio Azteca</h3>
+
+            <p>
+                Ciudad de México.
+                Primer estadio en albergar tres Copas del Mundo.
+            </p>
+
+        </div>
+
+        <div class="stadium-card">
+
+            <div class="stadium-image">
+                <img src="img/BBVA.jpg">
+            </div>
+
+            <h3>Estadio BBVA</h3>
+
+            <p>
+                Monterrey, Nuevo León.
+            </p>
+
+        </div>
+
+        <div class="stadium-card">
+
+            <div class="stadium-image">
+                <img src="img/Akron.jpg">
+            </div>
+
+            <h3>Estadio Akron</h3>
+
+            <p>
+                Guadalajara, Jalisco.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+ <!-- Pie de página con el Easter Egg oculto para autenticación -->
                 <footer class="main-footer">
 
             <div class="footer-container">
@@ -160,7 +272,5 @@
 
     <!-- Script del Frontend -->
     <script src="app.js"></script>
-
-    </div>
 </body>
 </html>
