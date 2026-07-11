@@ -21,20 +21,50 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'),
 app.use(morgan('combined', { stream: accessLogStream }));
 
 // 2. Hardening con Helmet y directivas estrictas de Content Security Policy (CSP)
-app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            scriptSrc: ["'self'"],
-            styleSrc: ["'self'"],
-            imgSrc: ["'self'"],
-            connectSrc: ["'self'"],
-            fontSrc: ["'self'"],
-            objectSrc: ["'none'"],
-            upgradeInsecureRequests: []
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+
+                scriptSrc: [
+                    "'self'",
+                    "https://challenges.cloudflare.com"
+                ],
+
+                frameSrc: [
+                    "'self'",
+                    "https://challenges.cloudflare.com"
+                ],
+
+                styleSrc: [
+                    "'self'",
+                    "'unsafe-inline'"
+                ],
+
+                imgSrc: [
+                    "'self'",
+                    "data:",
+                    "https:"
+                ],
+
+                connectSrc: [
+                    "'self'",
+                    "https://challenges.cloudflare.com"
+                ],
+
+                fontSrc: [
+                    "'self'",
+                    "data:"
+                ],
+
+                objectSrc: ["'none'"]
+                
+            }
         }
-    }
-}));
+    })
+);
+
 
 // Parsers de cuerpo de solicitud
 app.use(express.json());

@@ -5,32 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fase de Grupos - FIFA World Cup 2026</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
-    <div id="captcha">
-        <div class="captcha-box">
-
-        <h2>🏆 FIFA World Cup 2026</h2>
-
-        <p>
-            Verifica que eres un visitante humano para acceder al sitio.
-        </p>
-
-    <div
-        class="cf-turnstile"
-        data-sitekey="0x4AAAAAADze8BFvw8tQN6Ya"
-        data-callback="captchaCorrecto">
-    </div>
-
-    </div>
-
-</div>
-<div id="contenido" style="display:none;">
-
-    <!-- Aquí va todo tu sitio -->
-
-
 <nav class="main-nav">
     <div class="nav-container">
 
@@ -53,26 +29,38 @@
 </nav>
 
     <div class="app-container">
-        <!-- Encabezado Principal con branding del torneo -->
-        <header class="app-header">
-            <div class="header-content">
-                <div class="gold-badge">🏆</div>
-                <h1>Copa Mundial de la FIFA 2026</h1>
-                <p class="tagline">Panel Oficial de Clasificación - Fase de Grupos</p>
-            </div>
-        </header>
 
-        <!-- Contenedor Principal de la Tabla de Posiciones -->
-        <main class="app-main">
-            <div id="loading" class="loading-state">
-                <div class="loader"></div>
-                <p>Consultando registros oficiales en la base de datos...</p>
+    <main class="stadium-main">
+
+        <div class="hero-card">
+
+            <div class="hero-image">
+
+                <!-- Cambia esta imagen por la que quieras -->
+                <img id="heroImage" src="img/Mundial.png" alt="Mundial FIFA 2026">
+
             </div>
 
-            <div id="groups-container" class="groups-grid" style="display: none;">
-                <!-- Inyectado dinámicamente mediante app.js -->
+            <div class="hero-info">
+
+                <h1>FIFA WORLD CUP 2026</h1>
+
+                <p>
+                    Bienvenido al panel oficial del Mundial 2026.
+                    Consulta equipos, estadios, grupos, resultados,
+                    estadísticas y toda la información del torneo
+                    disputado en México, Estados Unidos y Canadá.
+                </p>
+
+                <a href="index.html" class="hero-button">
+                    Ver Clasificación
+                </a>
+
             </div>
-        </main>
+
+        </div>
+
+    </main>
 
         <!-- Pie de página con el Easter Egg oculto para autenticación -->
                 <footer class="main-footer">
@@ -160,7 +148,5 @@
 
     <!-- Script del Frontend -->
     <script src="app.js"></script>
-
-    </div>
 </body>
 </html>
