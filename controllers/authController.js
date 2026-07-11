@@ -1,4 +1,6 @@
 const bcrypt = require('bcrypt');
+const xss = require('xss');
+
 const { dbGet, dbRun } = require('../database/connection');
 const { createSession, destroySession } = require('../utils/session');
 const { parseCookies } = require('../middleware/auth');
@@ -6,83 +8,223 @@ const { logSecurityEvent } = require('../utils/logger');
 const { recordFailedLogin, resetFailedLogin } = require('../middleware/rateLimiter');
 
 async function login(req, res) {
-    const ip = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-    const { usuario, password } = req.body;
 
-    // Validación de entrada
-    if (!usuario || !password || typeof usuario !== 'string' || typeof password !== 'string') {
-        await logSecurityEvent('WARN', ip, 'INVALID_INPUT', 'Intento de inicio de sesión con campos vacíos o tipos incorrectos.');
-        return res.status(400).json({ error: 'Usuario y contraseña obligatorios.' });
+    const ip =
+        req.ip ||
+        req.headers['x-forwarded-for'] ||
+        req.socket.remoteAddress;
+
+    // Solo aceptar JSON
+    if (!req.is('application/json')) {
+        return res.status(415).json({
+            error: 'Content-Type inválido.'
+        });
     }
 
-    const usernameTrimmed = usuario.trim();
+    let { usuario, password } = req.body;
+
+    // Validación de tipos
+    if (
+        typeof usuario !== 'string' ||
+        typeof password !== 'string'
+    ) {
+
+        await logSecurityEvent(
+            'WARN',
+            ip,
+            'INVALID_INPUT',
+            'Tipos de datos inválidos en autenticación.'
+        );
+
+        return res.status(400).json({
+            error: 'Solicitud inválida.'
+        });
+    }
+
+    // Normalizar y sanitizar
+    usuario = xss(usuario.normalize('NFKC').trim());
+    password = password.normalize('NFKC');
+
+    // Validación del usuario
+    if (
+        usuario.length < 3 ||
+        usuario.length > 30 ||
+        !/^[A-Za-z0-9_]+$/.test(usuario)
+    ) {
+
+        await logSecurityEvent(
+            'WARN',
+            ip,
+            'INVALID_USERNAME',
+            'Nombre de usuario inválido.'
+        );
+
+        return res.status(400).json({
+            error: 'Usuario inválido.'
+        });
+    }
+
+    // Validación de contraseña
+    if (
+        password.length < 8 ||
+        password.length > 100
+    ) {
+
+        await logSecurityEvent(
+            'WARN',
+            ip,
+            'INVALID_PASSWORD',
+            'Longitud de contraseña inválida.'
+        );
+
+        return res.status(400).json({
+            error: 'Credenciales inválidas.'
+        });
+    }
 
     try {
-        // Consulta parametrizada segura contra inyección SQL
-        const user = await dbGet('SELECT * FROM Usuarios WHERE usuario = ?;', [usernameTrimmed]);
+
+        // Consulta parametrizada
+        const user = await dbGet(
+            'SELECT * FROM Usuarios WHERE usuario = ?;',
+            [usuario]
+        );
 
         if (!user) {
-            recordFailedLogin(ip, usernameTrimmed);
-            await logSecurityEvent('WARN', ip, 'LOGIN_FAILED', `Intento de login fallido: El usuario "${usernameTrimmed}" no existe.`);
-            return res.status(401).json({ error: 'Credenciales inválidas.' });
+
+            recordFailedLogin(ip, usuario);
+
+            await logSecurityEvent(
+                'WARN',
+                ip,
+                'LOGIN_FAILED',
+                'Intento de autenticación fallido.'
+            );
+
+            return res.status(401).json({
+                error: 'Credenciales inválidas.'
+            });
         }
 
-        // Validar contraseña
-        const passwordMatch = await bcrypt.compare(password, user.password_hash);
+        const passwordMatch = await bcrypt.compare(
+            password,
+            user.password_hash
+        );
 
         if (!passwordMatch) {
-            const record = recordFailedLogin(ip, usernameTrimmed);
-            const lockMsg = record.lockUntil ? ' (Usuario bloqueado temporalmente por 10 minutos)' : '';
-            await logSecurityEvent('WARN', ip, 'LOGIN_FAILED', `Intento de login fallido: Contraseña incorrecta para el usuario "${usernameTrimmed}"${lockMsg}.`);
-            return res.status(401).json({ error: 'Credenciales inválidas.' });
+
+            const record = recordFailedLogin(ip, usuario);
+
+            const lockMsg =
+                record.lockUntil
+                    ? ' Usuario bloqueado temporalmente.'
+                    : '';
+
+            await logSecurityEvent(
+                'WARN',
+                ip,
+                'LOGIN_FAILED',
+                `Contraseña incorrecta.${lockMsg}`
+            );
+
+            return res.status(401).json({
+                error: 'Credenciales inválidas.'
+            });
         }
 
-        // Limpiar contador de intentos fallidos
-        resetFailedLogin(ip, usernameTrimmed);
+        // Reiniciar contador
+        resetFailedLogin(ip, usuario);
 
-        // Crear sesión en memoria
+        // Crear sesión
         const { sessionId } = createSession(user.usuario);
 
-        // Actualizar último login en base de datos
+        // Actualizar último acceso
         const nowStr = new Date().toISOString();
-        await dbRun('UPDATE Usuarios SET ultimo_login = ? WHERE id = ?;', [nowStr, user.id]);
 
-        // Registrar inicio de sesión exitoso en Auditoria y archivo de logs
-        await logSecurityEvent('INFO', ip, 'LOGIN_SUCCESS', `Inicio de sesión correcto para el usuario: "${usernameTrimmed}".`);
+        await dbRun(
+            'UPDATE Usuarios SET ultimo_login = ? WHERE id = ?;',
+            [nowStr, user.id]
+        );
 
-        // Configurar cookie HTTP-Only, Secure (condicional para desarrollo local y producción ngrok), SameSite=Strict
-        const isSecure = req.headers['x-forwarded-proto'] === 'https' || req.secure;
+        await logSecurityEvent(
+            'INFO',
+            ip,
+            'LOGIN_SUCCESS',
+            'Administrador autenticado correctamente.'
+        );
+
+        const isSecure =
+            req.headers['x-forwarded-proto'] === 'https' ||
+            req.secure;
+
         const secureFlag = isSecure ? 'Secure; ' : '';
-        res.setHeader('Set-Cookie', `session_id=${sessionId}; HttpOnly; ${secureFlag}SameSite=Strict; Path=/; Max-Age=3600`);
 
-        return res.json({ success: true, message: 'Autenticación exitosa.' });
+        res.setHeader(
+            'Set-Cookie',
+            `session_id=${sessionId}; HttpOnly; ${secureFlag}SameSite=Strict; Priority=High; Path=/; Max-Age=3600`
+        );
+
+        return res.json({
+            success: true,
+            message: 'Autenticación exitosa.'
+        });
 
     } catch (error) {
+
         console.error('Error in authController.login:', error);
-        return res.status(500).json({ error: 'Error interno en el servidor.' });
+
+        return res.status(500).json({
+            error: 'Error interno del servidor.'
+        });
+
     }
+
 }
 
 async function logout(req, res) {
-    const ip = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-    
+
+    const ip =
+        req.ip ||
+        req.headers['x-forwarded-for'] ||
+        req.socket.remoteAddress;
     try {
+
         const cookies = parseCookies(req.headers.cookie);
+
         const sessionId = cookies['session_id'];
 
         if (sessionId) {
+
             destroySession(sessionId);
-            await logSecurityEvent('INFO', ip, 'LOGOUT_SUCCESS', 'Cierre de sesión del administrador exitoso.');
+
+            await logSecurityEvent(
+                'INFO',
+                ip,
+                'LOGOUT_SUCCESS',
+                'Administrador cerró sesión.'
+            );
+
         }
 
-        // Eliminar la cookie en el cliente
-        res.setHeader('Set-Cookie', 'session_id=; HttpOnly; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0');
-        
-        return res.json({ success: true, message: 'Sesión cerrada exitosamente.' });
+res.setHeader(
+    'Set-Cookie',
+    'session_id=; HttpOnly; SameSite=Strict; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0'
+);
+
+return res.json({
+    success: true,
+    message: 'Sesión cerrada exitosamente.'
+});
     } catch (error) {
+
         console.error('Error in authController.logout:', error);
-        return res.status(500).json({ error: 'Error interno en el servidor.' });
+
+        return res.status(500).json({
+            error: 'Error interno del servidor.'
+        });
+
     }
+
 }
 
 module.exports = {
